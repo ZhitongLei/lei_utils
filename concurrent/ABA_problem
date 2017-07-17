@@ -1,0 +1,20 @@
+A --> B --> C 
+
+push(node):
+    curr := head
+    old := curr
+    node->next = curr
+    while (old != (curr = CAS(&head, curr, node))) {
+         old = curr
+         node->next = curr
+    }
+
+pop():
+    curr := head
+    old := curr // curr = A
+    next = curr->next   // next = B
+    while (old != (curr = CAS(&head, curr, next))) {  // OK, head = B, curr = A
+        old = curr  // old = A
+        next = curr->next   // other thread change list(pop A, pop B and push A), list = (A, C), but curr->next = B, and B no longer exist
+    }
+    return curr
