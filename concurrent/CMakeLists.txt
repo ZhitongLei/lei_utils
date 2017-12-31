@@ -32,3 +32,6 @@ target_link_libraries(low_lock_queue_benchmark lock_free libbenchmark.a rt pthre
 
 add_executable(low_lock_queue_test low_lock_queue_test.cpp)
 target_link_libraries(low_lock_queue_test lock_free pthread)
+
+add_executable(thread_pool_test thread_pool_test.cpp)
+target_link_libraries(thread_pool_test lock_free pthread)
